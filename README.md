@@ -13,3 +13,5 @@ Plain HTML, CSS and a little JavaScript. No build step, no framework, no tracker
 Design: warm paper and black ink with one red accent, light and dark themes that follow the system setting, no gradients and no external requests.
 
 To update, edit the files and push to `main`. GitHub Pages publishes it within a minute or two.
+
+Cache note: GitHub Pages lets browsers keep files for 10 minutes. When you change `styles.css` or `main.js`, bump the `?v=` value on their links in `index.html` so visitors get the new version straight away.
