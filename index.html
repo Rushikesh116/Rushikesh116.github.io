@@ -6,15 +6,26 @@
 <title>Rushikesh Yadav Vadlakonda | Backend, distributed systems and AI agents</title>
 <meta name="description" content="Third-year CS student in India. I build backend systems for AI and prove they work: a Supabase Storage conformance study, a SigNoz MCP fix, the s3lin library on PyPI, and an LLM router simulator.">
 <meta name="author" content="Rushikesh Yadav Vadlakonda">
-<meta name="theme-color" content="#0d1515">
+<meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://rushikesh116.github.io/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Rushikesh Yadav Vadlakonda | Backend, distributed systems and AI agents">
 <meta property="og:description" content="I build backend systems for AI and prove they work. Open-source work with Supabase and SigNoz, and the s3lin library on PyPI.">
 <meta property="og:url" content="https://rushikesh116.github.io/">
 <meta property="og:image" content="https://rushikesh116.github.io/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<script>
+  // Set the theme before first paint: saved choice, otherwise the system setting.
+  (function () {
+    try {
+      var t = localStorage.getItem("theme");
+      if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    } catch (e) { document.documentElement.setAttribute("data-theme", "light"); }
+  })();
+</script>
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
@@ -33,16 +44,16 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav" id="top">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="Rushikesh Yadav Vadlakonda, home">RV<span>_</span></a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="menu" aria-label="Menu">Menu</button>
-    <nav id="menu" aria-label="Main">
+<header class="bar" id="top">
+  <div class="wrap bar-inner">
+    <a class="mark" href="#top" aria-label="Rushikesh Yadav Vadlakonda, home">Rushikesh V.</a>
+    <nav aria-label="Main">
       <a href="#work">Work</a>
       <a href="#open-source">Open source</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <a class="btn btn-small" href="assets/Rushikesh_Yadav_Vadlakonda_Resume.pdf">Resume</a>
+      <a href="assets/Rushikesh_Yadav_Vadlakonda_Resume.pdf">Resume <span class="arr" aria-hidden="true">&#8599;</span></a>
+      <button class="theme" type="button" aria-label="Switch between light and dark theme">Dark</button>
     </nav>
   </div>
 </header>
@@ -50,198 +61,298 @@
 <main id="main">
 
 <section class="hero wrap" aria-labelledby="hero-title">
-  <div class="hero-text">
-    <p class="chip"><span class="dot" aria-hidden="true"></span>Open to part-time remote work now, and full-time from May 2027</p>
-    <h1 id="hero-title">Rushikesh Yadav Vadlakonda</h1>
-    <p class="tagline">I build backend systems for AI, and prove they work.</p>
-    <p class="lede">Third-year computer science student at Amrita Vishwa Vidyapeetham in Kerala, India. I work on distributed systems, LLM infrastructure and agents, and I like problems where a system has to keep its promises when things fail.</p>
-    <p class="cta">
-      <a class="btn" href="#work">See my work</a>
-      <a class="btn btn-ghost" href="assets/Rushikesh_Yadav_Vadlakonda_Resume.pdf">Download resume</a>
-    </p>
-  </div>
+  <p class="kicker">Computer science student &middot; Kerala, India</p>
+  <h1 id="hero-title">Rushikesh Yadav<br>Vadlakonda</h1>
 
-  <figure class="terminal" aria-label="Terminal showing the s3lin command line tool finding a bug in a recorded history">
-    <div class="term-bar">
-      <span class="light red" aria-hidden="true"></span><span class="light yellow" aria-hidden="true"></span><span class="light green" aria-hidden="true"></span>
-      <span class="term-title">s3lin</span>
-      <button class="copy" type="button" data-copy="pip install s3lin" aria-label="Copy the install command">copy install</button>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="tagline">I build backend systems for AI, and prove they work.</p>
+      <p>Third-year student at Amrita Vishwa Vidyapeetham. I work on distributed systems, LLM infrastructure and agents, and I like problems where a system has to keep its promises when things fail.</p>
+      <p class="avail"><span class="sq" aria-hidden="true"></span>Available for part-time remote work now, and full-time from May 2027.</p>
+      <p class="actions">
+        <a class="btn" href="assets/Rushikesh_Yadav_Vadlakonda_Resume.pdf">Resume (PDF) <span class="arr" aria-hidden="true">&#8595;</span></a>
+        <a class="textlink" href="#work">See the work <span class="arr" aria-hidden="true">&rarr;</span></a>
+      </p>
     </div>
-<pre><code><span class="prompt">$</span> pip install s3lin
-<span class="prompt">$</span> s3lin check double-create.jsonl
-<span class="bad">double-create.jsonl: violation</span>
-  3 operations on 1 key, 0 indeterminate
-  key 'lock': not linearizable (3 operations)
-    blocking op 2 (client 2): put_inm writing 'client-2' -&gt; ok, HTTP 200
-    longest linearizable prefix: 1 operation,
-      after which the key is 'client-1'
-    create-once: 2 creates succeeded<span class="caret" aria-hidden="true"></span></code></pre>
-    <figcaption>Real output. Two clients both "created" the same key, which a correct store never allows.</figcaption>
-  </figure>
+
+    <figure class="figure">
+      <svg viewBox="0 0 560 330" role="img" aria-labelledby="fig-t fig-d" class="timeline">
+        <title id="fig-t">A history that s3lin flags</title>
+        <desc id="fig-d">Two clients send a create-only write for the same key at overlapping times. Both receive a 200 success. A correct store would have answered one of them with 412, so the history is not linearizable.</desc>
+        <g class="axis">
+          <line x1="20" y1="288" x2="540" y2="288"/>
+          <line x1="20" y1="282" x2="20" y2="294"/><line x1="150" y1="282" x2="150" y2="294"/><line x1="280" y1="282" x2="280" y2="294"/><line x1="410" y1="282" x2="410" y2="294"/><line x1="540" y1="282" x2="540" y2="294"/>
+          <text x="20" y="314" class="t-mono t-faint">time</text>
+          <text x="540" y="314" class="t-mono t-faint" text-anchor="end">&#8594;</text>
+        </g>
+        <text x="20" y="28" class="t-mono t-faint">client 1</text>
+        <rect x="20" y="40" width="270" height="44" class="bar bar-ink b1"/>
+        <text x="34" y="67" class="t-mono t-paper">PUT If-None-Match: *</text>
+        <g class="res r1"><line x1="290" y1="62" x2="318" y2="62" class="leader"/><text x="326" y="67" class="t-mono t-ink">200 ok</text></g>
+
+        <text x="20" y="128" class="t-mono t-faint">client 2</text>
+        <rect x="150" y="140" width="270" height="44" class="bar bar-red b2"/>
+        <text x="164" y="167" class="t-mono t-paper">PUT If-None-Match: *</text>
+        <g class="res r2"><line x1="420" y1="162" x2="448" y2="162" class="leader"/><text x="456" y="167" class="t-mono t-ink">200 ok</text></g>
+
+        <g class="flag">
+          <line x1="150" y1="194" x2="150" y2="214" class="dash"/><line x1="290" y1="194" x2="290" y2="214" class="dash"/>
+          <line x1="150" y1="214" x2="290" y2="214" class="dash"/>
+          <text x="300" y="219" class="t-mono t-red">overlap</text>
+          <text x="20" y="262" class="t-serif t-red">Two creates, one key.</text>
+        </g>
+      </svg>
+      <figcaption>A history s3lin flags. A correct store answers one of these writes with 412.</figcaption>
+    </figure>
+  </div>
 </section>
 
-<section class="proof wrap" aria-label="Results at a glance">
+<section class="evidence wrap" aria-label="Results at a glance">
   <ul class="stats">
     <li>
-      <p class="num">32 <span>&rarr;</span> 1</p>
-      <p class="what">clients that won a create-once race for one key: Supabase Storage on master, then with a community fix</p>
-      <a href="https://github.com/Rushikesh116/supabase-storage-s3lin">evidence</a>
+      <p class="num">32<span class="arr">&rarr;</span>1</p>
+      <p class="cap">clients that won a create-once race for one key: Supabase Storage on master, then with a community fix</p>
+      <a href="https://github.com/Rushikesh116/supabase-storage-s3lin">evidence <span class="arr" aria-hidden="true">&#8599;</span></a>
     </li>
     <li>
-      <p class="num">24/24 <span>&rarr;</span> 0/24</p>
-      <p class="what">fault-injection runs that broke create-once, before and after that fix</p>
-      <a href="https://github.com/Rushikesh116/supabase-storage-s3lin">evidence</a>
+      <p class="num">24/24<span class="arr">&rarr;</span>0/24</p>
+      <p class="cap">fault-injection runs that broke create-once, before and after that fix</p>
+      <a href="https://github.com/Rushikesh116/supabase-storage-s3lin">evidence <span class="arr" aria-hidden="true">&#8599;</span></a>
     </li>
     <li>
-      <p class="num">115,526 <span>&rarr;</span> 5,882</p>
-      <p class="what">characters a SigNoz MCP tool returned for one service, before and after my pull request</p>
-      <a href="https://github.com/SigNoz/signoz-mcp-server/pull/455">pull request</a>
+      <p class="num">115,526<span class="arr">&rarr;</span>5,882</p>
+      <p class="cap">characters a SigNoz MCP tool returned for one service, before and after my pull request</p>
+      <a href="https://github.com/SigNoz/signoz-mcp-server/pull/455">pull request <span class="arr" aria-hidden="true">&#8599;</span></a>
     </li>
     <li>
-      <p class="num">83 tests, 0 type errors</p>
-      <p class="what">s3lin 0.1.0 on PyPI, checked with mypy and pyright in strict mode on Python 3.11 to 3.15</p>
-      <a href="https://pypi.org/project/s3lin/">pypi.org/project/s3lin</a>
+      <p class="num">83<span class="unit">tests</span></p>
+      <p class="cap">s3lin 0.1.0 on PyPI, with zero errors in mypy and pyright strict mode on Python 3.11 to 3.15</p>
+      <a href="https://pypi.org/project/s3lin/">pypi.org/project/s3lin <span class="arr" aria-hidden="true">&#8599;</span></a>
     </li>
   </ul>
 </section>
 
 <section id="work" class="section wrap" aria-labelledby="work-title">
-  <h2 id="work-title"><span class="label">01 /</span> Selected work</h2>
-  <p class="section-lead">Each project below says what I measured, and where my own idea fell short.</p>
-
-  <div class="grid">
-
-    <article class="card featured">
-      <p class="tags"><span>Study</span><span>Python</span><span>TypeScript</span><span>S3</span></p>
-      <h3>Does Supabase Storage keep S3's conditional-write promises?</h3>
-      <p>Supabase's S3 endpoint ignored <code>If-None-Match</code>, so concurrent "create-once" calls all succeeded. I built master and a community fix from source, ran a 53-case conformance matrix on two storage backends, and checked create-once under container, Postgres and network faults. With 32 clients racing for one key, 32 won on master and exactly 1 with the fix. The fix still leaves <code>If-Match</code> (compare-and-swap) ignored, and my write-up says so.</p>
-      <p class="links">
-        <a href="https://github.com/Rushikesh116/supabase-storage-s3lin">Code and results</a>
-        <a href="https://github.com/supabase/storage/issues/1635">Issue #1635</a>
-        <a href="https://github.com/supabase/storage/pull/1636#issuecomment-6958510622">Review of the fix, #1636</a>
-        <a href="https://github.com/supabase/storage/pull/1712">Draft PR #1712: 8 regression tests</a>
-      </p>
-    </article>
-
-    <article class="card featured">
-      <p class="tags"><span>Open source</span><span>Go</span><span>MCP</span><span class="status">PR open</span></p>
-      <h3>SigNoz MCP server: a tool answer too big for AI clients</h3>
-      <p>A tool that lists a service's slowest operations returned 115,526 characters for a busy service, more than Claude Code accepts in one tool result. My pull request adds an optional <code>limit</code> (default 50) and a note saying how many rows were omitted. The same call now returns 5,882 characters, and the full table is one parameter away. The issue's author approved it; it is waiting for a maintainer (open as of 19 November 2026).</p>
-      <p class="links">
-        <a href="https://github.com/SigNoz/signoz-mcp-server/pull/455">Pull request #455</a>
-        <a href="https://github.com/SigNoz/signoz-mcp-server/issues/452">Issue #452</a>
-      </p>
-    </article>
-
-    <article class="card">
-      <p class="tags"><span>Library</span><span>Python</span><span>PyPI</span></p>
-      <h3>s3lin</h3>
-      <p>A linearizability checker for S3 conditional-write histories, packaged as a typed library with no runtime dependencies. It names the key and the operation where a history stops making sense. On 54 recorded histories (288,820 operations) it agrees with my original checker on all 1,245 keys. Version 0.1.0, so brand new.</p>
-      <p class="links">
-        <a href="https://pypi.org/project/s3lin/">PyPI</a>
-        <a href="https://github.com/Rushikesh116/s3lin">GitHub</a>
-      </p>
-    </article>
-
-    <article class="card">
-      <p class="tags"><span>Study</span><span>Python</span><span>Simulation</span></p>
-      <h3>LLM router recovery simulator</h3>
-      <p>A trace-driven simulator of LLM request routing: 8 vLLM-like replicas, public Mooncake traces, 10 policies modelled on SGLang, llm-d, Dynamo and LMetric, 10 seeds. My recovery-aware router recovered from a 30-second replica failure in 9 of 9 held-out seeds on both traces; variants without its recompute budget drifted into a 13 to 19 s p99 state at 95% load, against 3.8 to 5.5 s with it. It is not faster than SGLang's policy at recovery (165 s vs 125 s median on one trace).</p>
-      <p class="links"><span class="muted">Write-up on request. Simulation, not production.</span></p>
-    </article>
-
-    <article class="card">
-      <p class="tags"><span>Agents</span><span>Python</span><span>FastAPI</span><span>CockroachDB</span><span>AWS Bedrock</span></p>
-      <h3>NineLives: an on-call agent with durable memory</h3>
-      <p>Recalls similar past incidents by vector search (12 of 12 correct on benchmark cases) and runs only allowlisted fixes. Memory lives on a 3-node CockroachDB cluster, written in the same transaction as each fix, and it kept serving through live node kills (0.11 s and 6.85 s pauses). An ablation showed the memory is load-bearing.</p>
-      <p class="links"><a href="https://github.com/Rushikesh116/Ninelives">GitHub</a></p>
-    </article>
-
-    <article class="card">
-      <p class="tags"><span>Agents</span><span>Python</span><span>Claude Agent SDK</span><span>MCP</span></p>
-      <h3>Friday: a voice-driven multi-agent assistant</h3>
-      <p>A macOS assistant where a conversation agent hands work to parallel task and research agents, with human approval before risky actions and cost tracked per agent. I traced 7 of 18 failed runs to two root causes, including runaway fan-out (293 subagents in one run), and capped it at 10 per request.</p>
-      <p class="links"><a href="https://github.com/Rushikesh116/friday">GitHub</a></p>
-    </article>
-
-    <article class="card">
-      <p class="tags"><span>Voice</span><span>React</span><span>FastAPI</span><span>asyncio</span></p>
-      <h3>HypeCart: voice-to-ad generation</h3>
-      <p>Turns a short spoken pitch into 5 ad assets in English, Malayalam, Hindi and Telugu. Four models run concurrently with fault isolation, and a fast path returns the first assets in under 3 seconds.</p>
-      <p class="links"><a href="https://github.com/Rushikesh116/Codex-Nightline">GitHub</a></p>
-    </article>
-
-    <article class="card">
-      <p class="tags"><span>Robotics</span><span>ROS 2</span><span>Gazebo</span><span>Edge AI</span></p>
-      <h3>Robots and embedded systems</h3>
-      <p>RoboCup German Open 2026 rescue robot: ROS 2 and Gazebo modules and control interfaces for two robotic arms. Earlier: AgriShield, a solar-powered Zigbee-mesh farmland intrusion system (Bronze Medal, AgriXcelerate 2026), and a 95 KB TensorFlow Lite fault-detection model that runs in 3.75 ms on a Raspberry Pi 4.</p>
-      <p class="links">
-        <a href="https://github.com/Rushikesh116/Kinova-Jaco-Gen2-Interface">Kinova Jaco Gen2 interface</a>
-        <a href="https://github.com/Rushikesh116/ar4-mk3-interface">AR4 MK3 interface</a>
-      </p>
-    </article>
-
+  <div class="head">
+    <h2 id="work-title">Work <sup>08</sup></h2>
+    <p class="head-note">Each entry says what I measured, and where my own idea fell short.</p>
+    <button class="expand" type="button" data-state="open-some">Expand all</button>
   </div>
-  <p class="more"><a href="https://github.com/Rushikesh116?tab=repositories">More on GitHub</a></p>
+
+  <ol class="index">
+
+    <li>
+      <details open>
+        <summary>
+          <span class="n">01</span>
+          <span class="t">Does Supabase Storage keep S3's conditional-write promises?</span>
+          <span class="s">32 of 32 clients won a create-once race on master; exactly 1 with the community fix.</span>
+          <span class="k">Study / Python / TypeScript / S3</span>
+        </summary>
+        <div class="body">
+          <p>Supabase's S3 endpoint ignored <code>If-None-Match</code>, so concurrent "create-once" calls all succeeded. I built master and a community fix from source, ran a 53-case conformance matrix on two storage backends, and checked create-once under container, Postgres and network faults. The fix still leaves <code>If-Match</code> (compare-and-swap) ignored, and my write-up says so.</p>
+          <p class="links">
+            <a href="https://github.com/Rushikesh116/supabase-storage-s3lin">Code and results</a>
+            <a href="https://github.com/supabase/storage/issues/1635">Issue #1635</a>
+            <a href="https://github.com/supabase/storage/pull/1636#issuecomment-6958510622">Review of the fix, #1636</a>
+            <a href="https://github.com/supabase/storage/pull/1712">Draft PR #1712: 8 regression tests</a>
+          </p>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <details open>
+        <summary>
+          <span class="n">02</span>
+          <span class="t">SigNoz MCP server: a tool answer too big for AI clients</span>
+          <span class="s">A tool returned 115,526 characters; with my change, 5,882. Pull request open.</span>
+          <span class="k">Open source / Go / MCP</span>
+        </summary>
+        <div class="body">
+          <p>A tool that lists a service's slowest operations returned more than Claude Code accepts in one tool result. My pull request adds an optional <code>limit</code> (default 50) and a note saying how many rows were omitted, so the full table is one parameter away. Another contributor built it independently and confirmed it. It is waiting for a maintainer (open as of 19 November 2026).</p>
+          <p class="links">
+            <a href="https://github.com/SigNoz/signoz-mcp-server/pull/455">Pull request #455</a>
+            <a href="https://github.com/SigNoz/signoz-mcp-server/issues/452">Issue #452</a>
+          </p>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <details open>
+        <summary>
+          <span class="n">03</span>
+          <span class="t">s3lin</span>
+          <span class="s">A typed Python library that finds where concurrent S3 histories break.</span>
+          <span class="k">Library / Python / PyPI</span>
+        </summary>
+        <div class="body">
+          <p>A linearizability checker for S3 conditional-write histories, packaged with no runtime dependencies. It names the key and the operation where a history stops making sense. On 54 recorded histories (288,820 operations) it agrees with my original checker on all 1,245 keys. Version 0.1.0, so brand new.</p>
+          <figure class="specimen" aria-label="Terminal showing the s3lin command line tool finding a bug in a recorded history">
+            <div class="spec-bar"><span>terminal</span><button class="copy" type="button" data-copy="pip install s3lin">copy install</button></div>
+<pre><code><span class="pr">$</span> pip install s3lin
+<span class="pr">$</span> s3lin check double-create.jsonl
+<span class="bad">double-create.jsonl: violation</span>
+  3 operations on 1 key, 0 indeterminate
+  key 'lock': not linearizable (3 operations)
+    blocking op 2 (client 2): put_inm writing 'client-2' -&gt; ok
+    longest linearizable prefix: 1 operation,
+      after which the key is 'client-1'
+    create-once: 2 creates succeeded</code></pre>
+            <figcaption>Real output.</figcaption>
+          </figure>
+          <p class="links">
+            <a href="https://pypi.org/project/s3lin/">PyPI</a>
+            <a href="https://github.com/Rushikesh116/s3lin">GitHub</a>
+          </p>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <details>
+        <summary>
+          <span class="n">04</span>
+          <span class="t">LLM router recovery simulator</span>
+          <span class="s">Routers modelled on SGLang, llm-d and Dynamo, tested after a replica failure.</span>
+          <span class="k">Study / Python / Simulation</span>
+        </summary>
+        <div class="body">
+          <p>A trace-driven simulator of LLM request routing: 8 vLLM-like replicas, public Mooncake traces, 10 policies modelled on SGLang, llm-d, Dynamo and LMetric, 10 seeds. My recovery-aware router recovered from a 30-second replica failure in 9 of 9 held-out seeds on both traces; variants without its recompute budget drifted into a 13 to 19 s p99 state at 95% load, against 3.8 to 5.5 s with it. It is not faster than SGLang's policy at recovery (165 s vs 125 s median on one trace).</p>
+          <p class="links"><span class="muted">Write-up on request. A simulation, not production.</span></p>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <details>
+        <summary>
+          <span class="n">05</span>
+          <span class="t">NineLives</span>
+          <span class="s">An on-call agent whose memory survives node failures.</span>
+          <span class="k">Agents / Python / FastAPI / CockroachDB</span>
+        </summary>
+        <div class="body">
+          <p>Recalls similar past incidents by vector search (12 of 12 correct on benchmark cases) and runs only allowlisted fixes. Memory lives on a 3-node CockroachDB cluster, written in the same transaction as each fix, and it kept serving through live node kills (0.11 s and 6.85 s pauses). An ablation showed the memory is load-bearing.</p>
+          <p class="links"><a href="https://github.com/Rushikesh116/Ninelives">GitHub</a></p>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <details>
+        <summary>
+          <span class="n">06</span>
+          <span class="t">Friday</span>
+          <span class="s">A voice assistant that hands work to parallel agents, with human approval.</span>
+          <span class="k">Agents / Python / Claude Agent SDK / MCP</span>
+        </summary>
+        <div class="body">
+          <p>A macOS assistant where a conversation agent hands work to parallel task and research agents, with human approval before risky actions and cost tracked per agent. I traced 7 of 18 failed runs to two root causes, including runaway fan-out (293 subagents in one run), and capped it at 10 per request.</p>
+          <p class="links"><a href="https://github.com/Rushikesh116/friday">GitHub</a></p>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <details>
+        <summary>
+          <span class="n">07</span>
+          <span class="t">HypeCart</span>
+          <span class="s">A spoken pitch becomes five ad assets in four languages.</span>
+          <span class="k">Voice / React / FastAPI / asyncio</span>
+        </summary>
+        <div class="body">
+          <p>Turns a short spoken pitch into 5 ad assets in English, Malayalam, Hindi and Telugu. Four models run concurrently with fault isolation, and a fast path returns the first assets in under 3 seconds.</p>
+          <p class="links"><a href="https://github.com/Rushikesh116/Codex-Nightline">GitHub</a></p>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <details>
+        <summary>
+          <span class="n">08</span>
+          <span class="t">Robots and embedded systems</span>
+          <span class="s">A RoboCup rescue robot, a farm intrusion mesh, and a 95 KB model on a Raspberry Pi.</span>
+          <span class="k">Robotics / ROS 2 / Gazebo / Edge AI</span>
+        </summary>
+        <div class="body">
+          <p>RoboCup German Open 2026 rescue robot: ROS 2 and Gazebo modules and control interfaces for two robotic arms. Earlier: AgriShield, a solar-powered Zigbee-mesh farmland intrusion system (Bronze Medal, AgriXcelerate 2026), and a 95 KB TensorFlow Lite fault-detection model that runs in 3.75 ms on a Raspberry Pi 4.</p>
+          <p class="links">
+            <a href="https://github.com/Rushikesh116/Kinova-Jaco-Gen2-Interface">Kinova Jaco Gen2 interface</a>
+            <a href="https://github.com/Rushikesh116/ar4-mk3-interface">AR4 MK3 interface</a>
+          </p>
+        </div>
+      </details>
+    </li>
+
+  </ol>
+  <p class="more"><a href="https://github.com/Rushikesh116?tab=repositories">More on GitHub <span class="arr" aria-hidden="true">&#8599;</span></a></p>
 </section>
 
 <section id="open-source" class="section wrap" aria-labelledby="oss-title">
-  <h2 id="oss-title"><span class="label">02 /</span> Open source</h2>
-  <p class="section-lead">I read the issue tracker first, reproduce the problem, and show numbers.</p>
+  <div class="head">
+    <h2 id="oss-title">Open source</h2>
+    <p class="head-note">I read the issue tracker first, reproduce the problem, and show numbers.</p>
+  </div>
+  <p class="legend"><span class="sqs full" aria-hidden="true"></span> done &nbsp;&nbsp; <span class="sqs hollow" aria-hidden="true"></span> in progress</p>
   <ul class="oss">
-    <li><span class="status">PR open</span><div><a href="https://github.com/SigNoz/signoz-mcp-server/pull/455">SigNoz MCP server, #455</a><p>Cap the output of the slowest-operations tool. Passed the repository's full CI gate locally.</p></div></li>
-    <li><span class="status">Draft PR</span><div><a href="https://github.com/supabase/storage/pull/1712">Supabase Storage, #1712</a><p>Eight regression tests for S3 conditional writes, expected to fail on master until the fixes land.</p></div></li>
-    <li><span class="status">Review</span><div><a href="https://github.com/supabase/storage/pull/1636#issuecomment-6958510622">Supabase Storage, #1636</a><p>Test results for a community contributor's fix, including what it fixes and what it leaves out.</p></div></li>
-    <li><span class="status ok">Published</span><div><a href="https://pypi.org/project/s3lin/">s3lin 0.1.0 on PyPI</a><p>A typed Python library with CI on Linux, macOS and Windows.</p></div></li>
-    <li><span class="status ok">Merged</span><div><span class="strong">GSSoC 2026</span><p>Open-Source and Agentic AI track: pull requests merged after maintainer review.</p></div></li>
+    <li><span class="sqs hollow" aria-hidden="true"></span><div><a href="https://github.com/SigNoz/signoz-mcp-server/pull/455">SigNoz MCP server, #455</a><p>Cap the output of the slowest-operations tool. Passed the repository's full CI gate locally.</p></div><span class="st">PR open</span></li>
+    <li><span class="sqs hollow" aria-hidden="true"></span><div><a href="https://github.com/supabase/storage/pull/1712">Supabase Storage, #1712</a><p>Eight regression tests for S3 conditional writes, expected to fail on master until the fixes land.</p></div><span class="st">Draft PR</span></li>
+    <li><span class="sqs full" aria-hidden="true"></span><div><a href="https://github.com/supabase/storage/pull/1636#issuecomment-6958510622">Supabase Storage, #1636</a><p>Test results for a community contributor's fix, including what it fixes and what it leaves out.</p></div><span class="st">Review</span></li>
+    <li><span class="sqs full" aria-hidden="true"></span><div><a href="https://pypi.org/project/s3lin/">s3lin 0.1.0 on PyPI</a><p>A typed Python library with CI on Linux, macOS and Windows.</p></div><span class="st">Published</span></li>
+    <li><span class="sqs full" aria-hidden="true"></span><div><span class="strong">GSSoC 2026</span><p>Open-Source and Agentic AI track: pull requests merged after maintainer review.</p></div><span class="st">Merged</span></li>
   </ul>
 </section>
 
 <section id="about" class="section wrap" aria-labelledby="about-title">
-  <h2 id="about-title"><span class="label">03 /</span> About</h2>
+  <div class="head"><h2 id="about-title">About</h2></div>
   <div class="about">
-    <div>
-      <p>I am a third-year B.Tech student in Computer Science at Amrita Vishwa Vidyapeetham, Amritapuri. I care about systems that keep working when parts of them fail: databases, object stores, routers and agents.</p>
-      <p>My habit is to measure first and to write down what did not work. That is why my write-ups include the cases where my own idea lost, such as the router that never gets stuck but recovers more slowly than SGLang's.</p>
+    <div class="about-copy">
+      <p class="big">I care about systems that keep working when parts of them fail: databases, object stores, routers and agents.</p>
+      <p>I am a third-year B.Tech student in Computer Science at Amrita Vishwa Vidyapeetham, Amritapuri. My habit is to measure first and to write down what did not work. That is why my write-ups include the cases where my own idea lost, such as the router that never gets stuck but recovers more slowly than SGLang's.</p>
       <p>I am available for part-time remote work now, and full-time from May to July 2027.</p>
+    </div>
+    <div class="about-facts">
       <h3>Experience and education</h3>
-      <ul class="timeline">
+      <ul class="rows">
         <li><span class="when">Sept 2026 &ndash; now</span><div><strong>Intern, Amrita Center for Wireless Networks and Applications.</strong> Interactive virtual walkthroughs in Unity for the web (WebGL/WebXR) and VR headsets.</div></li>
         <li><span class="when">Dec 2025 &ndash; Feb 2026</span><div><strong>Infosys Springboard virtual internship.</strong> A LangGraph learning agent, traced and evaluated in LangSmith.</div></li>
         <li><span class="when">2024 &ndash; 2028</span><div><strong>B.Tech, Computer Science and Engineering, Amrita Vishwa Vidyapeetham.</strong> CGPA 8.4/10.</div></li>
-        <li><span class="when">2026</span><div><strong>Research.</strong> Manglish-to-English translation (mT5, mBART, NLLB; Optuna-tuned), presented at ICAN 2026. Bronze Medal at AgriXcelerate 2026; shortlisted among 575+ submissions in the IEEE IES Generative AI Challenge 2026.</div></li>
+        <li><span class="when">2026</span><div><strong>Research and awards.</strong> Manglish-to-English translation (mT5, mBART, NLLB; Optuna-tuned), presented at ICAN 2026. Bronze Medal at AgriXcelerate 2026; shortlisted among 575+ submissions in the IEEE IES Generative AI Challenge 2026.</div></li>
       </ul>
-    </div>
-    <div class="skills">
+
       <h3>Skills</h3>
-      <dl>
+      <dl class="skills">
         <dt>Languages</dt><dd>Python, TypeScript, Java, C, SQL</dd>
-        <dt>Backend and infrastructure</dt><dd>FastAPI, asyncio, REST, WebSockets, Server-Sent Events, PostgreSQL, CockroachDB, S3 API, Docker, Linux, Git</dd>
+        <dt>Backend</dt><dd>FastAPI, asyncio, REST, WebSockets, Server-Sent Events, PostgreSQL, CockroachDB, S3 API, Docker, Linux, Git</dd>
         <dt>AI and ML</dt><dd>MCP, LangGraph, LangSmith, AWS Bedrock, Claude Agent SDK, PyTorch, TensorFlow Lite, Optuna, model fine-tuning</dd>
-        <dt>Testing and quality</dt><dd>pytest, Vitest, mypy and pyright (strict), fault injection, linearizability checking</dd>
-        <dt>Robotics and embedded</dt><dd>ROS 2, Gazebo, Raspberry Pi, STM32, Zigbee, Unity and WebXR</dd>
+        <dt>Quality</dt><dd>pytest, Vitest, mypy and pyright (strict), fault injection, linearizability checking</dd>
+        <dt>Robotics</dt><dd>ROS 2, Gazebo, Raspberry Pi, STM32, Zigbee, Unity and WebXR</dd>
       </dl>
     </div>
   </div>
 </section>
 
 <section id="contact" class="section wrap contact" aria-labelledby="contact-title">
-  <h2 id="contact-title"><span class="label">04 /</span> Contact</h2>
-  <p class="section-lead">If you have a backend, infrastructure or agents problem and room for a motivated student, I would like to hear about it.</p>
-  <p class="cta">
-    <a class="btn" href="mailto:vadlakondarushikeshyadav@gmail.com">vadlakondarushikeshyadav@gmail.com</a>
-    <a class="btn btn-ghost" href="https://github.com/Rushikesh116">GitHub</a>
-    <a class="btn btn-ghost" href="https://www.linkedin.com/in/rushikesh-yadav-vadlakonda">LinkedIn</a>
-    <a class="btn btn-ghost" href="assets/Rushikesh_Yadav_Vadlakonda_Resume.pdf">Resume (PDF)</a>
+  <div class="head"><h2 id="contact-title">Contact</h2></div>
+  <p class="contact-lead">If you have a backend, infrastructure or agents problem and room for a motivated student, I would like to hear about it.</p>
+  <p class="email"><a href="mailto:vadlakondarushikeshyadav@gmail.com">vadlakondarushikeshyadav@gmail.com</a></p>
+  <p class="elsewhere">
+    <a href="https://github.com/Rushikesh116">GitHub <span class="arr" aria-hidden="true">&#8599;</span></a>
+    <a href="https://www.linkedin.com/in/rushikesh-yadav-vadlakonda">LinkedIn <span class="arr" aria-hidden="true">&#8599;</span></a>
+    <a href="assets/Rushikesh_Yadav_Vadlakonda_Resume.pdf">Resume (PDF) <span class="arr" aria-hidden="true">&#8595;</span></a>
   </p>
 </section>
 
 </main>
 
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <p>&copy; 2026 Rushikesh Yadav Vadlakonda. Last updated 19 November 2026.</p>
-    <p class="muted">Plain HTML and CSS with a little JavaScript. No trackers, no cookies.</p>
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <p>&copy; 2026 Rushikesh Yadav Vadlakonda &middot; Last updated 19 November 2026</p>
+    <p>Plain HTML and CSS. No trackers, no cookies.</p>
   </div>
 </footer>
 

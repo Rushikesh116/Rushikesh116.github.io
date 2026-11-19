@@ -7,6 +7,9 @@ Plain HTML, CSS and a little JavaScript. No build step, no framework, no tracker
 - `index.html`: all the content
 - `styles.css`, `main.js`: styling and small enhancements
 - `assets/`: the public resume PDF (no phone number)
+- `fonts/`: Instrument Serif and JetBrains Mono, subset to Latin (SIL Open Font License, licences included)
 - `og.png`: social preview image
+
+Design: warm paper and black ink with one red accent, light and dark themes that follow the system setting, no gradients and no external requests.
 
 To update, edit the files and push to `main`. GitHub Pages publishes it within a minute or two.

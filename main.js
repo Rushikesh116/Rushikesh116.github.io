@@ -1,20 +1,39 @@
 // Small enhancements only: the site works without JavaScript.
 (function () {
   "use strict";
-  // Mobile menu
-  var toggle = document.querySelector(".nav-toggle");
-  var menu = document.getElementById("menu");
-  if (toggle && menu) {
-    toggle.addEventListener("click", function () {
-      var open = menu.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  var root = document.documentElement;
+
+  // Theme toggle. The label names the theme you will switch to.
+  var theme = document.querySelector(".theme");
+  function label() {
+    if (theme) theme.textContent = root.getAttribute("data-theme") === "dark" ? "Light" : "Dark";
+  }
+  label();
+  if (theme) {
+    theme.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label();
     });
-    menu.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") {
-        menu.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-      }
+  }
+
+  // Expand or collapse every project
+  var expand = document.querySelector(".expand");
+  var items = document.querySelectorAll(".index details");
+  function sync() {
+    if (!expand) return;
+    var anyClosed = Array.prototype.some.call(items, function (d) { return !d.open; });
+    expand.textContent = anyClosed ? "Expand all" : "Collapse all";
+  }
+  if (expand) {
+    expand.addEventListener("click", function () {
+      var anyClosed = Array.prototype.some.call(items, function (d) { return !d.open; });
+      items.forEach(function (d) { d.open = anyClosed; });
+      sync();
     });
+    items.forEach(function (d) { d.addEventListener("toggle", sync); });
+    sync();
   }
 
   // Copy the install command
@@ -40,9 +59,8 @@
     });
   }
 
+  // Mark the current section in the nav
   if (!("IntersectionObserver" in window)) return;
-
-  // Highlight the current section in the nav
   var links = {};
   document.querySelectorAll("nav a[href^='#']").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
   var spy = new IntersectionObserver(function (entries) {
